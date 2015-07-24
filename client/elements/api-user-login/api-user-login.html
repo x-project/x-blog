@@ -1,7 +1,8 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../string-interpolate/string-interpolate.html">
+<link rel="import" href="../api-model-get/api-model-get.html">
 <link rel="import" href="../app-session/app-session.html">
+<link rel="import" href="../string-interpolate/string-interpolate.html">
 <dom-module id="api-user-login">
   <template>
 
@@ -15,7 +16,7 @@
       result="{{url}}">
     </string-interpolate>
 
-    <iron-ajax id="ajax"
+    <iron-ajax id="login"
       auto="[[auto]]"
       method="[[method]]"
       content-type="{{contentType}}"
@@ -25,8 +26,16 @@
       headers="{{headers}}"
       body="{{body}}"
       last-response="{{response}}"
-      last-error="{{error}}">
+      last-error="{{error}}"
+      on-response="on_login">
     </iron-ajax>
+
+    <api-model-get id="retrieve"
+      path="{{user_path}}"
+      token="{{access_token}}"
+      model="{{user}}"
+      on-model="on_retrieve">
+    </api-model-get>
 
   </template>
 </dom-module>
@@ -74,6 +83,18 @@
         type: Object,
         value: function () { return {}; }
       },
+      user_id: {
+        type: String
+      },
+      access_token: {
+        type: String
+      },
+      user_path: {
+        type: String
+      },
+      user: {
+        type: Object
+      },
       response: {
         type: Object,
         notify: true
@@ -85,25 +106,46 @@
     },
 
     observers: [
-      'on_change_credentials(credentials)',
-      'on_response(response)'
+      'on_change_credentials(credentials.*)'
     ],
 
-    on_change_credentials: function (credentials) {
-      this.body = JSON.stringify(credentials);
-    },
-
-    on_response: function (response) {
-      var session = this.$.session;
-      session.set('access_token', response.id);
-      session.set('user_id', response.userId);
-      session.set('ttl', response.ttl);
-      this.fire('login');
+    on_change_credentials: function () {
+      this.body = JSON.stringify(this.credentials);
     },
 
     send: function () {
-      this.$.ajax.generateRequest();
+      console.log(this.credentials, this.body);
+      this.$.login.generateRequest();
+    },
+
+    on_login: function () {
+      var response = this.response;
+      this.user_id = response.userId;
+      this.access_token = response.id;
+      this.ttl = response.ttl;
+      this.user_path = this.path + '/' + this.user_id;
+
+      var session = this.$.session;
+      session.set('access_token', this.access_token);
+      session.set('user_id', this.user_id);
+      session.set('ttl', this.ttl);
+
+      this.retrieve();
+    },
+
+    retrieve: function () {
+      this.$.retrieve.send();
+    },
+
+    on_retrieve: function () {
+      var session = this.$.session;
+      session.set('user', this.user);
+
+      console.log(this.user);
+
+      this.fire('login', this.user);
     }
+
 
   });
 </script>

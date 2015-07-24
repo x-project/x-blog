@@ -5,7 +5,8 @@
   },
   "mongo": {
     "name": "mongo",
-    "connector": "mongodb"
+    "connector": "mongodb",
+    "database": "x-project"
   },
   "email": {
     "name": "email",

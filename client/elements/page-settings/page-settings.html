@@ -22,18 +22,17 @@
 
     <div id="personal">
       <h2>Personal</h2>
-      <part-settings-picture user="{{user}}"></part-settings-picture>
-      <part-settings-profile user="{{user}}"></part-settings-profile>
+      <part-settings-profile user="{{user}}" token="{{token}}"></part-settings-profile>
     </div>
 
     <div id="email">
       <h2>Change email</h2>
-      <part-settings-email user="{{user}}"></part-settings-email>
+      <part-settings-email user="{{user}}" token="{{token}}"></part-settings-email>
     </div>
 
     <div id="password">
       <h2>Change password</h2>
-      <part-settings-password user="{{user}}"></part-settings-password>
+      <part-settings-password user="{{user}}" token="{{token}}"></part-settings-password>
     </div>
 
   </template>
@@ -46,11 +45,19 @@
     properties: {
       user: {
         type: Object
+      },
+      token: {
+        type: String
+      },
+      params: {
+        type: Object,
+        value: function () { return {}; }
       }
     },
 
-    ready: function () {
+    attached: function () {
       this.user = this.$.session.get('user');
+      this.token = this.$.session.get('access_token');
     }
 
   });

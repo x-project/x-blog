@@ -1,7 +1,7 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="../app-link/app-link.html">
-<link rel="import" href="../form-reset/form-reset.html">
-<dom-module id="page-reset">
+<link rel="import" href="../form-signup/form-signup.html">
+<dom-module id="page-signup">
   <style>
     :host {
       display: block;
@@ -11,20 +11,21 @@
 
     <a is="app-link" href="/">home</a>
 
-    <h3>Reset password</h3>
+    <h3>Signup</h3>
 
-    <form-reset></form-reset>
+    <form-signup></form-signup>
 
     <div>
-      <a is="app-link" href="/signup">not registered?</a>
+      <a is="app-link" href="/login">already registered?</a>
     </div>
+
 
   </template>
 </dom-module>
 <script>
   Polymer({
 
-    is: 'page-reset'
+    is: 'page-signup'
 
   });
 </script>
