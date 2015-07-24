@@ -1,0 +1,50 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../api-user-reset/api-user-reset.html">
+<dom-module id="form-reset">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <api-user-reset id="reset" email="{{email}}"
+      response="{{response}}" on-response="{{on_response}}">
+    </api-user-reset>
+
+    <form id="form" on-submit="on_submit">
+      <div>
+        <label>email</label>
+        <input is="iron-input" type="text" placeholder="email" value="{{email}}">
+      </div>
+
+      <input is="iron-input" type="button" value="reset">
+    </form>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'form-reset',
+
+    properties: {
+      email: {
+        type: Object
+      },
+      response: {
+        type: Object
+      }
+    },
+
+    on_submit: function (event) {
+      event.preventDefault();
+      this.$.reset.send();
+    },
+
+    on_response: function (event) {
+      console.log(this.response);
+    }
+
+  });
+</script>

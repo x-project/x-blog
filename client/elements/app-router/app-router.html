@@ -1,0 +1,61 @@
+<link rel="import" href="/components/polymer/polymer.html">   
+<dom-module id="app-router">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <div id="container" on-click-link="on_click_link"></div>
+
+    <div id="routes">
+      <content select="app-route"></content>
+    </div>
+    
+  </template>
+</dom-module>
+<script src="../../components/page/page.js"></script>
+<script>
+  Polymer({
+
+    is: 'app-router',
+
+    ready: function () {
+      this.container = this.$.container;
+      var routes = this.querySelectorAll('app-route')
+      this.routes = Array.prototype.slice.call(routes);
+      this.routes.forEach(function (route) {
+        var path = route.getAttribute('path');
+        var page_name = route.getAttribute('page');
+        page(path, this.open(page_name));
+      }, this);
+      page();
+    },
+
+    on_click_link: function (event) {
+      page.show(event.detail);
+    },
+
+    open: function (page_name) {
+      var container = this.container;
+      var app = this;
+      return function (context) {
+        var params = context.params;
+        var property;
+        var element = document.createElement(page_name);
+        for (property in params) {
+          if (isNaN(property)) {
+            element.setAttribute(property, params[property]);
+          }
+        }
+        context.element = element;
+        app.page = element;
+        while (container.firstChild) container.removeChild(container.firstChild);
+        container.appendChild(element);
+        scroll(0,0);
+      };
+    }
+
+  });
+</script>

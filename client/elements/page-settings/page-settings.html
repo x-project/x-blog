@@ -1,0 +1,57 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../app-link/app-link.html">
+<link rel="import" href="../app-session/app-session.html">
+<link rel="import" href="part-settings-profile.html">
+<link rel="import" href="part-settings-email.html">
+<link rel="import" href="part-settings-password.html">
+<dom-module id="page-settings">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <app-session id="session"></app-session>
+
+    <a is="app-link" href="/">home</a>
+
+    <header>
+      <h1>Settings</h1>
+    </header>
+
+    <div id="personal">
+      <h2>Personal</h2>
+      <part-settings-picture user="{{user}}"></part-settings-picture>
+      <part-settings-profile user="{{user}}"></part-settings-profile>
+    </div>
+
+    <div id="email">
+      <h2>Change email</h2>
+      <part-settings-email user="{{user}}"></part-settings-email>
+    </div>
+
+    <div id="password">
+      <h2>Change password</h2>
+      <part-settings-password user="{{user}}"></part-settings-password>
+    </div>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'page-settings',
+
+    properties: {
+      user: {
+        type: Object
+      }
+    },
+
+    ready: function () {
+      this.user = this.$.session.get('user');
+    }
+
+  });
+</script>

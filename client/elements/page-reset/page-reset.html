@@ -1,0 +1,26 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../app-link/app-link.html">
+<link rel="import" href="../form-reset/form-reset.html">
+<dom-module id="page-reset">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <a is="app-link" href="/">home</a>
+
+    <h3>Reset password</h3>
+
+    <form-reset></form-reset>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'page-reset'
+
+  });
+</script>

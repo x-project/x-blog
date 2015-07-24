@@ -1,0 +1,16 @@
+{
+  "name": "x-project-example-s3",
+  "version": "0.0.1",
+  "main": "server/server.js",
+  "dependencies": {
+    "compression": "^1.4.4",
+    "loopback": "^2.18",
+    "loopback-boot": "^2.8",
+    "loopback-connector-mongodb": "^1.10.0",
+    "loopback-datasource-juggler": "^2.19",
+    "node-env-file": "^0.1.7"
+  },
+  "optionalDependencies": {
+    "loopback-explorer": "^1.7"
+  }
+}
