@@ -1,0 +1,60 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../api-s3-list/api-s3-list.html">
+<link rel="import" href="part-s3-list-item.html">
+<dom-module id="part-s3-list">
+  <style>
+    :host {
+      display: block;
+    }
+
+    .thumb {
+      width: 300px;
+      height: auto;
+    }
+  </style>
+  <template>
+
+    <api-s3-list id="list" list="{{list}}" folder="{{folder}}"></api-s3-list>
+
+    <template is="dom-if" if="{{!list.length}}">
+      <span>empty</span>
+    </template>
+
+    <template is="dom-repeat" items="{{list}}" filter="filter">
+      <part-s3-list-item item="{{item}}" on-delete="update"></part-s3-list-item>
+    </template>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-s3-list',
+
+    properties: {
+      bucket: {
+        type: String,
+        value: ''
+      },
+      folder: {
+        type: String,
+        value: ''
+      },
+      list: {
+        type: Array,
+        value: []
+      }
+    },
+
+    update: function () {
+      this.$.list.send();
+    },
+
+    filter: function (item) {
+      var url = 'https://' + this.bucket + '.s3.amazonaws.com/' + item.key;
+      item.url = url;
+      return item;
+    }
+
+  });
+</script>

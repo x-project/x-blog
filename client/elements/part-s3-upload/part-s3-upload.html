@@ -1,0 +1,47 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="../api-s3-upload/api-s3-upload.html">
+<dom-module id="part-s3-upload">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+
+    <api-s3-upload id="upload" folder="{{folder}}"
+      file="{{file}}" file-name="{{fileName}}">
+    </api-s3-upload>
+
+    <input id="input" type="file" on-change="on_change">
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'part-s3-upload',
+
+    properties: {
+      folder: {
+        type: String,
+        value: ''
+      },
+      fileName: {
+        type: String
+      },
+      file: {
+        type: Object
+      }
+    },
+
+    on_change: function () {
+      var file = this.$.input.files[0];
+      if (!file) {
+        return;
+      }
+      this.fileName = this.fileName || file.name;
+      this.file = file;
+    }
+
+  });
+</script>
