@@ -2,23 +2,5 @@
   "db": {
     "name": "db",
     "connector": "memory"
-  },
-  "mongo": {
-    "name": "mongo",
-    "connector": "mongodb",
-    "database": "x-project"
-  },
-  "email": {
-    "name": "email",
-    "connector": "mail",
-    "transports": [{
-      "type": "smtp",
-      "host": "smtp.mandrillapp.com",
-      "secure": true,
-      "port": 465,
-      "tls": {
-        "rejectUnauthorized": false
-      }
-    }]
   }
 }

@@ -6,19 +6,24 @@
     :host {
       display: block;
     }
+
+    #panel {
+      margin-top: 50px;
+    }
+    #panel a {
+      text-decoration: none;
+    }
   </style>
   <template>
 
-    <a is="app-link" href="/">home</a>
-
-    <h3>Signup</h3>
-
-    <form-signup></form-signup>
-
-    <div>
-      <a is="app-link" href="/login">already registered?</a>
+    <div id="panel" class="container">
+      <a is="app-link" href="/">&larr;</a>
+      <h3>Signup</h3>
+      <form-signup></form-signup>
+      <div>
+        <a is="app-link" href="/login">already registered?</a>
+      </div>
     </div>
-
 
   </template>
 </dom-module>

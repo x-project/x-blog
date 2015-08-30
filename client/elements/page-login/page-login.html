@@ -1,26 +1,37 @@
 <link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/layout-grid/layout-grid.html">
 <link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../form-login/form-login.html">
+<link rel="import" href="../api-user-login/api-user-login.html">
 <dom-module id="page-login">
   <style>
     :host {
       display: block;
     }
+
+    #panel {
+      margin-top: 50px;
+    }
+    #panel a {
+      text-decoration: none;
+    }
   </style>
   <template>
 
-    <a is="app-link" href="/">home</a>
+    <api-user-login id="login" collection="BaseUsers" credentials="{{credentials}}"
+      response="{{response}}" on-response="on_login">
+    </api-user-login>
 
-    <h3>Login</h3>
-
-    <form-login on-login="on_login"></form-login>
-
-    <div>
-      <a is="app-link" href="/signup">not registered?</a>
-    </div>
-
-    <div>
-      <a is="app-link" href="/reset">forgot password?</a>
+    <div id="panel" class="container">
+      <a is="app-link" href="/">&larr;</a>
+      <h3>Login</h3>
+      <form-login id="form" on-submit="on_submit"></form-login>
+      <div>
+        <a is="app-link" href="/signup">not registered?</a>
+      </div>
+      <div>
+        <a is="app-link" href="/reset">forgot password?</a>
+      </div>
     </div>
 
   </template>
@@ -30,8 +41,11 @@
 
     is: 'page-login',
 
+    on_submit: function (event) {
+      this.$.login.send();
+    },
+
     on_login: function (event) {
-      console.log(event);
       page('/admin');
     }
 

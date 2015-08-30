@@ -6,17 +6,23 @@
     :host {
       display: block;
     }
+
+    #panel {
+      margin-top: 50px;
+    }
+    #panel a {
+      text-decoration: none;
+    }
   </style>
   <template>
 
-    <a is="app-link" href="/">home</a>
-
-    <h3>Reset password</h3>
-
-    <form-reset></form-reset>
-
-    <div>
-      <a is="app-link" href="/signup">not registered?</a>
+    <div id="panel" class="container">
+      <a is="app-link" href="/">&larr;</a>
+      <h3>Reset password</h3>
+      <form-reset></form-reset>
+      <div>
+        <a is="app-link" href="/signup">not registered?</a>
+      </div>
     </div>
 
   </template>

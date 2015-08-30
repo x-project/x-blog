@@ -12,13 +12,14 @@
       response="{{response}}" on-response="{{on_response}}">
     </api-user-reset>
 
-    <form id="form" on-submit="on_submit">
-      <div class="field">
-        <label>email</label>
-        <input is="iron-input" type="text" placeholder="email" value="{{email}}">
+    <form id="form" role="form" name="forgot">
+      <div class="field" name="email">
+        <label class="label">email</label>
+        <input class="input" is="iron-input" type="text" value="{{email}}">
       </div>
-
-      <input is="iron-input" type="button" value="reset">
+      <div>
+        <input class="button" is="iron-input" type="submit" value="reset">
+      </div>
     </form>
 
   </template>
@@ -30,7 +31,7 @@
 
     properties: {
       email: {
-        type: Object
+        type: String
       },
       response: {
         type: Object
