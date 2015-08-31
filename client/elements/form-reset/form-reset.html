@@ -1,5 +1,5 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="../api-user-reset/api-user-reset.html">
+<link rel="import" href="/components/iron-input/iron-input.html">
 <dom-module id="form-reset">
   <style>
     :host {
@@ -8,17 +8,13 @@
   </style>
   <template>
 
-    <api-user-reset id="reset" email="{{email}}"
-      response="{{response}}" on-response="{{on_response}}">
-    </api-user-reset>
-
-    <form id="form" role="form" name="forgot">
+    <form id="form" role="form" name="reset" on-submit="on_submit">
       <div class="field" name="email">
         <label class="label">email</label>
-        <input class="input" is="iron-input" type="text" value="{{email}}">
+        <input class="input" is="iron-input" type="text" bind-value="{{email}}">
       </div>
       <div>
-        <input class="button" is="iron-input" type="submit" value="reset">
+        <input class="button" type="submit" value="reset">
       </div>
     </form>
 
@@ -31,20 +27,19 @@
 
     properties: {
       email: {
-        type: String
-      },
-      response: {
-        type: Object
+        type: String,
+        notify: true
       }
     },
 
     on_submit: function (event) {
       event.preventDefault();
-      this.$.reset.send();
+      event.stopPropagation();
+      this.fire('submit', this.email);
     },
 
-    on_response: function (event) {
-      console.log(this.response);
+    clear: function () {
+      this.email = '';
     }
 
   });

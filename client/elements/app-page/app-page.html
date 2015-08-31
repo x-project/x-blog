@@ -25,7 +25,7 @@
   <template>
 
   <div id="page">
-    <part-header id="header"></part-header>
+    <part-header id="header" user="{{user}}"></part-header>
     <div id="main">
       <content></content>
     </div>
@@ -40,7 +40,11 @@
 
     is: 'app-page',
 
-    ready: function () {}
+    properties: {
+      user: {
+        type: Object
+      }
+    }
 
   });
 </script>

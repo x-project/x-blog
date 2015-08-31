@@ -1,4 +1,5 @@
 <link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/iron-input/iron-input.html">
 <dom-module id="form-login">
   <style>
     :host {
@@ -7,17 +8,17 @@
   </style>
   <template>
 
-    <form id="form" role="form" name="login">
+    <form id="form" role="form" name="login" on-submit="on_submit">
       <div class="field" name="email">
-        <label class="label">email</label>
+        <label class="label">[[label_email]]</label>
         <input class="input" is="iron-input" type="text" bind-value="{{credentials.email}}">
       </div>
       <div class="field" name="password">
-        <label class="label">password</label>
+        <label class="label">[[label_password]]</label>
         <input class="input" is="iron-input" type="password" bind-value="{{credentials.password}}">
       </div>
-      <div>
-        <input class="button" type="submit" value="login" />
+      <div class="field" name="submit">
+        <input class="button" type="submit" value="[[label_submit]]" />
       </div>
     </form>
 
@@ -29,6 +30,18 @@
     is: 'form-login',
 
     properties: {
+      label_email: {
+        type: String,
+        value: 'email'
+      },
+      label_password: {
+        type: String,
+        value: 'password'
+      },
+      label_submit: {
+        type: String,
+        value: 'login'
+      },
       credentials: {
         type: Object,
         value: function () { return {}; },
@@ -37,6 +50,7 @@
     },
 
     on_submit: function (event) {
+      event.stopPropagation();
       event.preventDefault();
       this.fire('submit', this.credentials);
     },

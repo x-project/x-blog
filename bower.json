@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "x-portfolio",
   "dependencies": {
-    "x-element": "x-element/x-element"
+    "x-element": "x-element/x-element",
+    "iron-input": "PolymerElements/iron-input#^1.0"
   }
 }

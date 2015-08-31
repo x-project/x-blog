@@ -1,6 +1,5 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/iron-input/iron-input.html">
-<link rel="import" href="../api-user-signup/api-user-signup.html">
 <dom-module id="form-signup">
   <style>
     :host {
@@ -8,10 +7,6 @@
     }
   </style>
   <template>
-
-    <api-user-signup id="signup" path="BaseUsers" credentials="{{credentials}}"
-      on-signup="on_signup" on-error="on_error">
-    </api-user-signup>
 
     <form id="form" on-submit="on_submit">
       <div class="field">
@@ -35,23 +30,15 @@
     properties: {
       credentials: {
         type: Object,
-        value: function () { return {}; }
+        value: function () { return {}; },
+        notify: true
       }
     },
 
     on_submit: function (event) {
+      event.stopPropagation();
       event.preventDefault();
-      console.log(this.credentials);
-      this.$.signup.send();
-    },
-
-    on_signup: function (event) {
-      console.log('signup');
-      page('/admin');
-    },
-
-    on_error: function (event) {
-      console.warn(event);
+      this.fire('submit', this.credentials);
     }
 
   });
