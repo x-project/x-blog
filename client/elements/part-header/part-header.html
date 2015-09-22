@@ -47,12 +47,12 @@
       <nav id="navbar">
         <ul class="links">
           <template is="dom-if" if="{{user.id}}">
-            <li><a is="app-link" class="link" href="/portfolio">portfolio</a></li>
+            <li><a is="app-link" class="link" href="/articles">articles</a></li>
             <li><a is="app-link" class="link" href="/settings">settings</a></li>
             <li><a on-click="on_click_logout" class="link" href="/logout">logout</a></li>
           </template>
           <template is="dom-if" if="{{!user.id}}">
-            <li><a is="app-link" class="link" href="/portfolio">portfolio</a></li>
+            <li><a is="app-link" class="link" href="/articles">articles</a></li>
             <li><a is="app-link" class="link" href="/login">login</a></li>
             <li><a is="app-link" class="link" href="/signup">signup</a></li>
           </template>
@@ -70,7 +70,7 @@
     properties: {
       brand: {
         type: String,
-        value: 'home'
+        value: 'x-blog'
       },
       links: {
         type: Array
@@ -85,7 +85,7 @@
     },
 
     on_user: function (user) {
-      console.log(user);
+
     },
 
     on_click_logout: function (event) {

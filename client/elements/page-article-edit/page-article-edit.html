@@ -1,10 +1,10 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/layout-grid/layout-grid.html">
 <link rel="import" href="../app-page/app-page.html">
-<link rel="import" href="../app-texts/app-texts.html">
 <link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../part-jumbotron/part-jumbotron.html">
-<dom-module id="page-portfolio">
+<link rel="import" href="form-article.html">
+<dom-module id="page-article-edit">
   <style>
     :host {
       display: block;
@@ -35,13 +35,14 @@
     <app-page>
       <part-jumbotron id="jumbotron">
         <header id="header">
-          <h1 id="title">Portfolio</h1>
+          <h1 id="title"><span>Edit article</span></h1>
         </header>
       </part-jumbotron>
 
-      <div id="items" class="container">
-        <span>no item yet.</span>
+      <div class="container">
+        <form-article article="{{article}}"></form-article>
       </div>
+
     </app-page>
 
   </template>
@@ -49,7 +50,14 @@
 <script>
   Polymer({
 
-    is: 'page-portfolio'
+    is: 'page-article-edit',
+
+    properties: {
+      article: {
+        type: Object,
+        value: function () { return {}; }
+      }
+    }
 
   });
 </script>

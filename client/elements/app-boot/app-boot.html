@@ -9,7 +9,9 @@
 <link rel="import" href="/elements/page-privacy/page-privacy.html">
 <link rel="import" href="/elements/page-test/page-test.html">
 <link rel="import" href="/elements/page-login/page-login.html">
-<link rel="import" href="/elements/page-portfolio/page-portfolio.html">
+<link rel="import" href="/elements/page-article/page-article.html">
+<link rel="import" href="/elements/page-article-edit/page-article-edit.html">
+<link rel="import" href="/elements/page-articles/page-articles.html">
 <link rel="import" href="/elements/page-reset/page-reset.html">
 <link rel="import" href="/elements/page-settings/page-settings.html">
 <link rel="import" href="/elements/page-signup/page-signup.html">
@@ -33,7 +35,9 @@
       <app-route path="/contact" page="page-contact" on-route="/contact"></app-route>
       <app-route path="/home" page="page-home" on-route="/home"></app-route>
       <app-route path="/privacy" page="page-privacy" on-route="/privacy"></app-route>
-      <app-route path="/portfolio" page="page-portfolio"></app-route>
+      <app-route path="/articles" page="page-articles"></app-route>
+      <app-route path="/articles/:article_id" page="page-article"></app-route>
+      <app-route path="/articles/:article_id/edit" page="page-article-edit"></app-route>
       <app-route path="/login" page="page-login" on-route="/login"></app-route>
       <app-route path="/reset" page="page-reset" on-route="/reset"></app-route>
       <app-route path="/signup" page="page-signup" on-route="/signup"></app-route>
@@ -96,11 +100,11 @@
     },
 
     '/settings': function (event) {
-      if (!this.user) {
-        event.stopPropagation();
-        page('/login');
-        return;
-      }
+      // if (!this.user) {
+      //   event.stopPropagation();
+      //   page('/login');
+      //   return;
+      // }
     }
 
   });
