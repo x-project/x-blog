@@ -1,20 +1,24 @@
 {
-  "name": "x-portfolio",
+  "name": "x-blog",
   "version": "0.0.1",
-  "description": "x-portfolio",
+  "description": "x-blog",
   "main": "server/server.js",
   "preinstall": "bower update",
   "scripts": {
     "pretest": "jshint ."
   },
   "dependencies": {
+    "aws-sdk": "^2.2.4",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
     "errorhandler": "^1.1.1",
     "loopback": "^2.14.0",
     "loopback-boot": "^2.6.5",
+    "loopback-connector-mongodb": "^1.13.0",
     "loopback-datasource-juggler": "^2.19.0",
-    "serve-favicon": "^2.0.1"
+    "serve-favicon": "^2.0.1",
+    "node-env-file": "^0.1.7"
+
   },
   "optionalDependencies": {
     "loopback-explorer": "^1.1.0"

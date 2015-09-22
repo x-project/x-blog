@@ -1,5 +1,5 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="../api-s3-list/api-s3-list.html">
+<link rel="import" href="/components/api-s3-list/api-s3-list.html">
 <link rel="import" href="part-s3-list-item.html">
 <dom-module id="part-s3-list">
   <style>
@@ -30,15 +30,14 @@
   Polymer({
 
     is: 'part-s3-list',
-
     properties: {
-      bucket: {
-        type: String,
-        value: ''
-      },
       folder: {
         type: String,
         value: ''
+      },
+      bucket: {
+        type: String,
+        value: 'x-project-test'
       },
       list: {
         type: Array,

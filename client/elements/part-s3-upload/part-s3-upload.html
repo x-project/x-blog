@@ -1,5 +1,5 @@
 <link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="../api-s3-upload/api-s3-upload.html">
+<link rel="import" href="/components/api-s3-upload/api-s3-upload.html">
 <dom-module id="part-s3-upload">
   <style>
     :host {
@@ -41,6 +41,8 @@
       }
       this.fileName = this.fileName || file.name;
       this.file = file;
+      this.$.upload.send();
+      console.log(this.fileName);
     }
 
   });

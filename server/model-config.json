@@ -31,5 +31,9 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "Image": {
+    "dataSource": "mongo",
+    "public": true
   }
 }

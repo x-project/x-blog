@@ -43,7 +43,7 @@
         <div>{{article.content}}</div>
       </div>
       <div class="container">
-        <part-s3-list path="{{article.id}}"></part-s3-list>
+        <part-s3-list id="list" preview="true"> </part-s3-list>
       </div>
 
     </app-page>
@@ -60,6 +60,9 @@
         type: Object,
         value: function () { return {}; }
       }
+    },
+    attached: function() {
+      this.$.list.update();
     }
 
   });

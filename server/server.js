@@ -3,6 +3,9 @@ var boot = require('loopback-boot');
 var path = require('path');
 
 var app = module.exports = loopback();
+var env = require('node-env-file');
+
+env(__dirname + '/.env');
 
 app.start = function() {
   return app.listen(function() {
