@@ -8,7 +8,11 @@
   </style>
   <template>
 
-    <form id="form" role="form" name="login" on-submit="on_submit">
+    <template is="dom-if" if="{{error.message}}">
+      <div class="alert error">wrong email or password</div>
+    </template>
+
+    <form id="form" role="form" name="login" on-submit="on_submit" on-keyup="on_keyup">
       <div class="field" name="email">
         <label class="label">[[label_email]]</label>
         <input class="input" is="iron-input" type="text" bind-value="{{credentials.email}}">
@@ -30,6 +34,10 @@
     is: 'form-login',
 
     properties: {
+      error: {
+        type: Object,
+        value: function () { return {}; }
+      },
       label_email: {
         type: String,
         value: 'email'
@@ -47,6 +55,13 @@
         value: function () { return {}; },
         notify: true
       }
+    },
+
+    on_keyup: function (event) {
+      if (event.keyCode === 13) {
+        return;
+      }
+      this.set('error', {});
     },
 
     on_submit: function (event) {

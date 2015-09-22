@@ -19,13 +19,15 @@
   <template>
 
     <api-user-login id="login" credentials="{{credentials}}"
-      response="{{response}}" on-response="on_login" on-error="on_error">
+      response="{{response}}" on-response="on_login" 
+      error="{{error}}" on-error="on_error">
     </api-user-login>
 
     <div id="panel" class="container">
       <a is="app-link" href="/">&larr;</a>
       <h3>Login</h3>
-      <form-login id="form" on-submit="on_submit"></form-login>
+
+      <form-login id="form" on-submit="on_submit" error="{{error.error}}"></form-login>
       <div>
         <a is="app-link" href="/signup">not registered?</a>
       </div>
@@ -41,17 +43,25 @@
 
     is: 'page-login',
 
+    properties: {
+      error: {
+        type: Object,
+        value: function () { return {}; }
+      }
+    },
+
     on_submit: function (event) {
       this.credentials = event.detail;
       this.$.login.send();
     },
 
     on_login: function (event) {
+      this.error = {};
       page('/settings');
     },
 
     on_error: function (event) {
-      console.warn(event);
+      console.warn(this.error);
     }
 
   });
