@@ -8,10 +8,19 @@
   </style>
   <template>
 
+<!--
     <api-model-update id="update" collection="Users" model_id="56015f6d32ffc40b08789870"
       data="{{data}}" on-response="on_response" model="{{response}}"
       error="{{error}}" on-error="on_error">
     </api-model-update>
+ -->
+    
+    <iron-ajax id="update" method="POST" url="/api/Authors/change_email"
+      content-type="application/json" body="{{input}}"
+      handle-as="json" last-response="{{response}}"
+      last-error="{{error}}" on-error="on_error">
+    </iron-ajax>
+
 
     <template is="dom-if" if="{{error.diversity}}">
       <div class="alert error">email not confirmed</div>
@@ -21,23 +30,23 @@
       <div class="alert error">something went wrong...</div>
     </template>
 
-    <template is="dom-if" if="{{model}}">
+    <template is="dom-if" if="{{response}}">
       <div class="alert success">email changed successfully!</div>
     </template>
 
-    <form id="form" on-submit="onœ¬_submit" on-keyup="on_keyup">
+    <form id="form" on-submit="on_submit" on-keyup="on_keyup">
       <div>
         <label>new email</label>
-        <input is="iron-input" type="email" bind-value="{{input.email}}">
+        <input is="iron-input" type="text" bind-value="{{input.new_email}}">
       </div>
       <div>
         <label>confirm email</label>
-        <input is="iron-input" type="email" bind-value="{{input.confirm}}">
+        <input is="iron-input" type="text" bind-value="{{input.confirm_email}}">
       </div>
-      <div>
+      <!-- <div>
         <label>password</label>
         <input is="iron-input" type="password" bind-value="{{input.password}}">
-      </div>
+      </div> -->
       <input type="submit" value="change" />
     </form>
 
@@ -66,13 +75,16 @@
     on_submit: function (event) {
       event.stopPropagation();
       event.preventDefault();
-      console.log(this.input.email, this.input.confirm);
-      if (this.input.email !== this.input.confirm) {
-        this.set('error.diversity', true);
-        return;
-      }
-      this.data = { email: this.input.email };
-      this.$.update.send();
+      // console.log(this.input.email, this.input.confirm);
+      // if (this.input.email !== this.input.confirm) {
+      //   this.set('error.diversity', true);
+      //   return;
+      // }
+      // this.data = { email: this.input.email };
+      var ajax = this.$.update;
+      ajax.headers = { Authorization: localStorage.getItem('access_token') };
+      ajax.body = JSON.stringify(this.input);
+      ajax.generateRequest();
     }, 
 
     on_keyup: function (event) {

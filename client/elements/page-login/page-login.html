@@ -18,7 +18,7 @@
   </style>
   <template>
 
-    <api-user-login id="login" credentials="{{credentials}}"
+    <api-user-login id="login" collection="Authors" credentials="{{credentials}}"
       response="{{response}}" on-response="on_login" 
       error="{{error}}" on-error="on_error">
     </api-user-login>
@@ -44,6 +44,10 @@
     is: 'page-login',
 
     properties: {
+      response: {
+        type: Object,
+        value: function () { return {}; }
+      },
       error: {
         type: Object,
         value: function () { return {}; }
@@ -57,6 +61,8 @@
 
     on_login: function (event) {
       this.error = {};
+      console.log(this.response.id);
+      localStorage.setItem('access_token', this.response.id);
       page('/settings');
     },
 

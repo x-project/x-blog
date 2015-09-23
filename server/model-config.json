@@ -14,10 +14,16 @@
     ]
   },
   "User": {
-    "dataSource": "mongo"
+    "dataSource": "mongo",
+    "public": true
   },
+  "Author": {
+    "dataSource": "mongo",
+    "public": true    
+  },
+
   "AccessToken": {
-    "dataSource": "db",
+    "dataSource": "mongo",
     "public": false
   },
   "ACL": {
