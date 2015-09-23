@@ -29,23 +29,60 @@
     #items {
       margin-top: 50px;
     }
+    #author {
+      float: right;
+      font-size: 18px;
+      padding-top: 30px
+    }
+    #header {
+      width: 100%;
+    }
+    #content {
+      text-align: justify;
+      color: darkgrey;
+      width: 100%;
+    }
   </style>
   <template>
 
     <app-page>
       <part-jumbotron id="jumbotron">
         <header id="header">
-          <h1 id="title"><span>Article</span> <span>{{article.title}}</span></h1>
+          <!-- <h1 id="title"><span>Article</span> <span>{{article.title}}</span></h1> -->
+          <h1 id="title"><span>Mars: Is there a chance? </span> <span id="author">by John Doe</span> </h1>
         </header>
       </part-jumbotron>
 
       <div class="container">
-        <div>{{article.content}}</div>
-      </div>
-      <div class="container">
-        <part-s3-list id="list" preview="true"> </part-s3-list>
-      </div>
+        <div>
+        <br>
+          <p id= "content">
+            Some of our friends at the Lakeview Museum of Arts and Sciences in Peoria, Illinois, wonder whether there is life on Mars. This is an idea that has intrigued people for centuries, and one that I, perhaps like you, have wondered about for most of my own life.
+            <br>
+            Futuristic human outpost on Mars.
+            While robotic spacecraft have given us wonderful views, no humans have ever tried to journey to Mars, and no such missions will be attempted for many years. In fact, whoever will turn out to be the first people on Mars may be your age today, and when you are an adult, perhaps you will watch -- or even participate!-- as people make the first voyage to that planet.
+            <br>
+            <p>
+            </p>
+            </div>
+            <div class="container">
+              <part-s3-list id="list"> </part-s3-list>
+            </div>
+            <div>
+            <p id= "content">
 
+            In the meantime, NASA is working hard now to discover whether there is life on Mars. The United States and other countries have been sending spacecraft to orbit or land there since the 1960s, and each mission teaches us more about this fascinating planet. We have learned that even though Mars is more similar to Earth than anywhere else in the solar system, and therefore is a good place to look for life, it is still different from Earth in many ways.
+            <br>
+            A compass points to the north pole on Earth because our whole planet acts like a giant magnet, but Mars does not act this way. Besides turning a compass needle, Earth's magnetic field turns away dangerous particles of space radiation. Without a magnetic field on Mars and with much, much less air than on Earth, more harmful space radiation reaches its surface. Although some measurements tell us there probably is water on Mars, there is far less than on Earth. And it is so cold there that most of the water is probably not liquid but rather is ice. Overall, Mars would be a pretty uncomfortable place to try to live!
+            <br>
+            Viking 1 takes picture of itself and Mars landscape.
+            In 1976, NASA landed robotic spacecraft named Viking 1 and Viking 2 on Mars. One of these landers worked there for nearly 4 years and the other lasted more than 6 years. Think of spending that much of your life studying another world! Among their scientific experiments were the only ones so far specifically designed to discover whether there was something tiny (like bacteria) living in the soil.
+            <br>
+            Blast off to Mars now!
+            But you don't have to wait, because you can blast off on a Mars Adventure of your own right now!
+          </p>
+        </div>
+      </div>
     </app-page>
 
   </template>

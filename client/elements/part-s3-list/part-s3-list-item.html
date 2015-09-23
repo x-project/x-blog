@@ -11,8 +11,17 @@
     }
 
     #thumb {
-      width: 300px;
+      width: 100%;
       height: auto;
+    }
+    #image_labels {
+      color: darkgrey;
+    }
+    #image_details{
+      color: black;
+    }
+    #thumb[preview="true"] {
+      width: 200px;
     }
   </style>
   <template>
@@ -20,15 +29,15 @@
     <api-s3-delete id="request" file_name="{{item.key}}"></api-s3-delete>
 
     <div id="image">
+      <img id="thumb" src="{{item.url}}" preview$="{{preview}}">
       <template is="dom-if" if="{{preview}}">
-        <img id="thumb" src="{{item.url}}">
+        <ul id="image_labels">
+          <li>Name: <span id="image_details">{{item.key}}</span></li>
+          <li>Modified: <span id="image_details">{{dateFormat(item.lastmodified)}}</span></li>
+          <li>Size: <span id="image_details">{{sizeFormat(item.size)}}</span> KB</li>
+        </ul>
+        <button id="delete" on-click="delete_image">delete</button>
       </template>
-      <ul>
-        <li>name: <span>{{item.key}}</span></li>
-        <li>modified: <span>{{item.lastmodified}}</span></li>
-        <li>size: <span>{{item.size}}</span></li>
-      </ul>
-      <button id="delete" on-click="delete_image">delete</button>
     </div>
 
   </template>
@@ -44,13 +53,20 @@
       },
       preview: {
         type: Boolean,
-        value: true
+        value: false
       }
     },
 
     delete_image: function () {
       this.$.request.send();
+    },
+    dateFormat: function (date) {
+      date = date.substring(0,10);
+      return date;
+    },
+    sizeFormat: function (size) {
+      size = parseInt(size)/1000;
+      return size;
     }
-
-  });
+});
 </script>

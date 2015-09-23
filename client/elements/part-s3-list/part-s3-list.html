@@ -17,11 +17,10 @@
     <api-s3-list id="list" list="{{list}}" folder="{{folder}}"></api-s3-list>
 
     <template is="dom-if" if="{{!list.length}}">
-      <span>empty</span>
     </template>
 
     <template is="dom-repeat" items="{{list}}" filter="filter">
-      <part-s3-list-item item="{{item}}" on-delete="update"></part-s3-list-item>
+      <part-s3-list-item item="{{item}}" preview="{{preview}}" on-delete="update"></part-s3-list-item>
     </template>
 
   </template>

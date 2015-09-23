@@ -3,6 +3,8 @@
 <link rel="import" href="../app-page/app-page.html">
 <link rel="import" href="../app-link/app-link.html">
 <link rel="import" href="../part-jumbotron/part-jumbotron.html">
+<link rel="import" href="../part-s3-list/part-s3-list.html">
+
 <link rel="import" href="form-article.html">
 <dom-module id="page-article-edit">
   <style>
@@ -25,7 +27,9 @@
     #header {
       color: white;
     }
-
+    .form {
+      margin-top: 50px;
+    }
     #items {
       margin-top: 50px;
     }
@@ -40,9 +44,11 @@
       </part-jumbotron>
 
       <div class="container">
-        <form-article article="{{article}}"></form-article>
+        <form-article class="form" article="{{article}}"></form-article>
       </div>
-
+      <div class="container">
+        <part-s3-list id="list" preview="true"> </part-s3-list>
+      </div>
     </app-page>
 
   </template>
@@ -57,7 +63,9 @@
         type: Object,
         value: function () { return {}; }
       }
+    },
+  attached: function() {
+      this.$.list.update();
     }
-
   });
 </script>

@@ -2,8 +2,8 @@
 <link rel="import" href="/components/iron-input/iron-input.html">
 <link rel="import" href="/components/layout-grid/layout-grid.html">
 <link rel="import" href="/components/iron-autogrow-textarea/iron-autogrow-textarea.html">
-<link rel="import" href="../part-s3-upload/part-s3-upload.html">
 <link rel="import" href="../app-link/app-link.html">
+<link rel="import" href="../part-s3-upload/part-s3-upload.html">
 <dom-module id="form-article">
   <style>
     :host {
@@ -25,20 +25,29 @@
     #header {
       color: white;
     }
-
+    .form {
+      color: darkgrey;
+    }
     #items {
       margin-top: 50px;
+    }
+    .field{
+      margin-top: 10px;
     }
   </style>
   <template>
 
     <form class="form">
       <div class="field">
-        <label class="label">title</label>
+        <label class="label">Title</label>
+      </div>
+      <div>
         <input class="input" is="iron-input" type="text" bind-value="{{article.title}}">
       </div>
       <div class="field">
-        <label class="label">content</label>
+        <label class="label">Content</label>
+      </div>
+      <div>
         <iron-autogrow-textarea class="textarea" rows="10" bind-value="{{article.content}}">
           <textarea></textarea>
         </iron-autogrow-textarea>
@@ -47,10 +56,9 @@
         <part-s3-upload></part-s3-upload>
       </div>
       <div class="field">
-        <button type="submit">update</button>
+        <button type="submit">Update</button>
       </div>
-    </form>
-
+     </form>
   </template>
 </dom-module>
 <script>
