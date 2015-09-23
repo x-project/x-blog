@@ -48,7 +48,6 @@
     update: function () {
       this.$.list.send();
     },
-
     filter: function (item) {
       var url = 'https://' + this.bucket + '.s3.amazonaws.com/' + item.key;
       item.url = url;
