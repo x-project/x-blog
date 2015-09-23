@@ -17,16 +17,16 @@
   </style>
   <template>
 
-    <api-s3-delete id="request" file-name="{{item.key}}"></api-s3-delete>
+    <api-s3-delete id="request" file_name="{{item.key}}"></api-s3-delete>
 
     <div id="image">
       <template is="dom-if" if="{{preview}}">
         <img id="thumb" src="{{item.url}}">
       </template>
       <ul>
-        <li>{{item.key}}</li>
-        <li>{{item.lastmodified}}</li>
-        <li>{{item.size}}</li>
+        <li>name: <span>{{item.key}}</span></li>
+        <li>modified: <span>{{item.lastmodified}}</span></li>
+        <li>size: <span>{{item.size}}</span></li>
       </ul>
       <button id="delete" on-click="delete_image">delete</button>
     </div>
