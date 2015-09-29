@@ -11,6 +11,12 @@
       "principalId": "$authenticated",  
       "permission": "ALLOW",
       "property": "change_email"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$authenticated",  
+      "permission": "ALLOW",
+      "property": "change_password"
     }
   ],
   "methods": []

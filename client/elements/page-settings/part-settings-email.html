@@ -7,20 +7,12 @@
     }
   </style>
   <template>
-
-<!--
-    <api-model-update id="update" collection="Users" model_id="56015f6d32ffc40b08789870"
-      data="{{data}}" on-response="on_response" model="{{response}}"
-      error="{{error}}" on-error="on_error">
-    </api-model-update>
- -->
     
     <iron-ajax id="update" method="POST" url="/api/Authors/change_email"
       content-type="application/json" body="{{input}}"
-      handle-as="json" last-response="{{response}}"
+      handle-as="json" last-response="{{response}}" on-response="on_response"
       last-error="{{error}}" on-error="on_error">
     </iron-ajax>
-
 
     <template is="dom-if" if="{{error.diversity}}">
       <div class="alert error">email not confirmed</div>
@@ -30,7 +22,7 @@
       <div class="alert error">something went wrong...</div>
     </template>
 
-    <template is="dom-if" if="{{response}}">
+    <template is="dom-if" if="{{response.changed}}">
       <div class="alert success">email changed successfully!</div>
     </template>
 
@@ -43,11 +35,11 @@
         <label>confirm email</label>
         <input is="iron-input" type="text" bind-value="{{input.confirm_email}}">
       </div>
-      <!-- <div>
+      <div>
         <label>password</label>
         <input is="iron-input" type="password" bind-value="{{input.password}}">
-      </div> -->
-      <input type="submit" value="change" />
+      </div>
+      <input type="submit" value="change"/>
     </form>
 
   </template>
@@ -62,9 +54,10 @@
         type: Object,
         value: function () { return {} }
       },
-      data: {
+      response: {
         type: Object,
-        value: function () { return {} }
+        value: function () { return {}; }
+
       },
       error: {
         type: Object,
@@ -82,7 +75,8 @@
       // }
       // this.data = { email: this.input.email };
       var ajax = this.$.update;
-      ajax.headers = { Authorization: localStorage.getItem('access_token') };
+      var access_token = localStorage.getItem('access_token');
+      ajax.headers = { Authorization:  access_token };
       ajax.body = JSON.stringify(this.input);
       ajax.generateRequest();
     }, 
