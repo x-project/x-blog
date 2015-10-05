@@ -1,5 +1,5 @@
 {
-  "name": "x-journal",
+  "name": "x-blog",
   "version": "0.0.5",
   "dependencies": {
     "iron-ajax": "PolymerElements/iron-ajax#^1.0",
