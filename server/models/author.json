@@ -1,23 +1,77 @@
 {
   "name": "Author",
+  "plural": "authors",
   "base": "User",
-  "idInjection": true,
-  "properties": {},
+  "mongodb": {
+    "collection": "authors"
+  },
+  "properties": {
+    "fullname": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "birthdate": {
+      "type": "date"
+    }
+  },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "articles": {
+      "type": "hasMany",
+      "model": "Article"
+    }
+  },
+  "mixins": {
+    "TimeStamp" : true
+  },
   "acls": [
     {
       "principalType": "ROLE",
-      "principalId": "$authenticated",  
+      "accessType": "READ",
+      "principalId": "$authenticated",
       "permission": "ALLOW",
-      "property": "change_email"
+      "property": "find"
     },
     {
       "principalType": "ROLE",
-      "principalId": "$authenticated",  
+      "accessType": "READ",
+      "principalId": "admin",
       "permission": "ALLOW",
-      "property": "change_password"
+      "property": "findById"
+    },
+    {
+      "principalType": "ROLE",
+      "accessType": "READ",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "findById"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "__get__articles"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "__create__articles"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "updateAttributes"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW",
+      "property": "updateAttributes"
     }
   ],
-  "methods": []
+  "methods": {}
 }

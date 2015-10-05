@@ -1,0 +1,171 @@
+<link rel="import" href="../../components/api-model/api-model.html">
+<link rel="import" href="../../components/app-container/app-container.html">
+<link rel="import" href="../../components/app-link/app-link.html">
+<link rel="import" href="../../components/app-route/app-route.html">
+<link rel="import" href="../../components/app-routes/app-routes.html">
+<link rel="import" href="../../components/app-session/app-session.html">
+<link rel="import" href="../app-theme/app-theme.html">
+<link rel="import" href="../page-article/page-article.html">
+<link rel="import" href="../page-articles/page-articles.html">
+<link rel="import" href="../page-categories/page-categories.html">
+<link rel="import" href="../page-category/page-category.html">
+<link rel="import" href="../page-home/page-home.html">
+<link rel="import" href="../page-settings/page-settings.html">
+<dom-module id="app-boot">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <app-session id="session"></app-session>
+
+    <app-container id="app" on-login="on_login" on-logout="on_logout"></app-container>
+
+  </template>
+</dom-module>
+<script src="../../components/page/page.js"></script>
+<script>
+  Polymer({
+
+    is: 'app-boot',
+
+    ready: function () {
+      this.register();
+    },
+
+    register: function () {
+      var app = this;
+      Object.keys(app.constructor.prototype)
+        .filter(function (method) {
+          return method.indexOf('/') == 0;
+        })
+        .forEach(function (method) {
+          var handler = app[method].bind(this);
+          page(method, handler);
+        }, this);
+      page();
+    },
+
+    attached: function (event) {
+      this.session = this.$.session;
+    },
+
+    on_login: function (event) {
+      var session = this.$.session;
+      session.set('access_token', event.detail.id);
+      session.set('user_id', event.detail.userId);
+      session.set('user', event.detail.user);
+      page('/admin/team');
+    },
+
+    on_logout: function (event) {
+      var session = this.$.session;
+      session.unset('access_token');
+      session.unset('user_id');
+      session.unset('user');
+      page('/');
+    },
+
+    ensure_auth: function (context) {
+      // if (!this.$.session.get('access_token')) {
+      //   page('/login');
+      //   return;
+      // }
+      context.session = {};
+      context.session.user = this.$.session.get('user');
+      context.session.access_token = this.$.session.get('access_token');
+      return new Promise(function (resolve) {
+        resolve(context);
+      });
+    },
+
+    get_model: function (params) {
+      var request = document.createElement('api-model-get');
+      request.collection = params.collection;
+      request.modelId = params.modelId;
+      request.include = params.include || [];
+
+      return new Promise(function (resolve, reject) {
+        request.addEventListener('response', function (event) {
+          resolve(request.response);
+        }, true);
+        request.addEventListener('error', function (event) {
+          reject(request.error);
+        }, true);
+        request.send();
+      });
+    },
+
+    open_page: function (context) {
+      var element = document.createElement(context.page_name);
+      element.params = context.params;
+      element.model = context.model;
+      this.$.app.open(element);
+    },
+
+    '/admin': function (context) {
+      this.ensure_auth(context);
+      context.page_name = 'page-home';
+      this.open_page(context);
+    },
+
+    '/admin/home': function (context) {
+      this.ensure_auth(context);
+      context.page_name = 'page-home';
+      this.open_page(context);
+    },
+
+    '/admin/categories': function (context) {
+      this.ensure_auth(context);
+      context.page_name = 'page-categories';
+      this.open_page(context);
+    },
+
+    '/admin/categories/:category_id': function (context) {
+      this.ensure_auth(context);
+      this.get_model({
+          collection: 'categories',
+          modelId: context.params.category_id
+        })
+        .then(function (model) {
+          context.page_name = 'page-category';
+          context.model = model;
+          this.open_page(context);
+        }.bind(this))
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+
+    '/admin/articles': function (context) {
+      this.ensure_auth(context);
+      context.page_name = 'page-articles';
+      this.open_page(context);
+    },
+
+    '/admin/articles/:article_id': function (context) {
+      this.ensure_auth(context);
+      this.get_model({
+          collection: 'articles',
+          modelId: context.params.article_id
+        })
+        .then(function (model) {
+          context.page_name = 'page-article';
+          context.model = model;
+          this.open_page(context);
+        }.bind(this))
+        .catch(function (error) {
+          console.log(error);
+        }.bind(this));
+    },
+
+    '/admin/settings': function (context) {
+      this.ensure_auth(context);
+      context.page_name = 'page-settings';
+      this.open_page(context);
+    }
+
+  });
+</script>

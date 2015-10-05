@@ -1,0 +1,78 @@
+<link rel="import" href="/components/iron-input/iron-input.html">
+<link rel="import" href="/components/api-model-update/api-model-update.html">
+<link rel="import" href="../style-form/style-form.html">
+<dom-module id="form-category">
+  <template>
+    <style include="style-form"></style>
+
+    <api-model-update id="update" collection="categories" model-id="{{model.id}}"
+      on-response="on_response_update">
+    </api-model-update>
+
+    <api-model-delete id="delete" collection="categories" model-id="{{model.id}}"
+      on-response="on_response_delete">
+    </api-model-delete>
+
+    <form class="form" on-submit="on_submit">
+      <div class="field">
+        <label class="label">name</label>
+        <input class="input" is="iron-input" type="text" bind-value="{{model.name}}">
+      </div>
+      <div class="field">
+        <label class="label">description</label>
+        <input class="input" is="iron-input" type="text" bind-value="{{model.description}}">
+      </div>
+      <div class="field">
+        <input type="submit" class="button" value="update">
+      </div>
+      <div class="field">
+        <input type="button" class="button danger" value="delete" on-click="on_click_delete">
+      </div>
+    </form>
+
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+
+    is: 'form-category',
+
+    properties: {
+      model: {
+        type: Object,
+        value: function () { return {}; }
+      }
+    },
+
+    request_update: function (event) {
+      event.preventDefault();
+      this.$.update.send();
+    },
+
+    request_delete: function (event) {
+      event.preventDefault();
+      this.$.delete.send();
+    },
+
+    on_submit: function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      this.request_update();
+    },
+
+    on_click_delete: function (event) {
+      event.preventDefault();
+      this.request_delete();
+    },
+
+    on_response_update: function (event) {
+      alert('category updated successfully!');
+    },
+
+    on_response_delete: function (event) {
+      page('/admin/categories');
+    }
+
+  });
+</script>

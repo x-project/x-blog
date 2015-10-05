@@ -1,0 +1,127 @@
+<link rel="import" href="../../components/iron-input/iron-input.html">
+<link rel="import" href="../../components/api-model-find/api-model-find.html">
+<dom-module id="field-article-category">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+      }
+
+      #box {
+        width: 300px;
+      }
+      #search {
+        width: 100%;
+        display: block;
+      }
+      #menu {
+        width: 100%;
+        display: none;
+      }
+      #menu[visible] {
+        display: block;
+      }
+      #menu:focus {
+        outline: none;
+      }
+
+    </style>
+
+    <api-model-find id="find" collection="categories" response="{{items}}" where="{{where}}"></api-model-find>
+
+    <div id="box">
+      <input id="search" class="input search" type="text" is="iron-input" bind-value="{{search}}"
+        on-keyup="on_keyup" on-keydown="on_keydown" on-focus="on_focus" on-blur="on_blur">
+
+      <select id="menu" visible$="{{searching}}" size="5" on-change="on_change" on-keydown="on_k">
+        <template id="repeat" is="dom-repeat" items="{{items}}">
+          <option class="item" on-click="on_click_item">{{item.name}}</option>
+        </template>
+      <select>
+    </div>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'field-article-category',
+
+    properties: {
+      items: {
+        type: Array
+      },
+      where: {
+        type: Object,
+        value: function () { return {}; }
+      },
+      search: {
+        type: String
+      },
+      searching: {
+        type: Boolean,
+        value: false
+      }
+    },
+
+    on_focus: function (event) {
+      this.find();
+      this.set('searching', true);
+    },
+
+    on_blur: function (event) {
+      // this.set('searching', false);
+    },
+
+    on_keydown: function (event) {
+      if (event.keyCode === 40) {
+        this.set('search', this.items[0].name);
+        this.$.menu.selectedIndex = 0;
+        this.$.menu.focus();
+        event.stopPropagation();
+        event.preventDefault();
+      }
+    },
+
+    on_k: function (event) {
+      console.log(event.target);
+      var value = event.target.value;
+      var index = -1;
+      this.items.some(function (item, i) {
+        var test = item.name == value;
+        if (test)
+          index = i
+        return test;
+      });
+      var length = this.items.length;
+      console.log(value, index, length-1)
+      if (index >= length-1) {
+        this.$.menu.selectedIndex = 0;
+        event.stopPropagation()
+        event.preventDefault();
+      }
+    },
+
+    on_keyup: function (event) {
+      this.find();
+    },
+
+    on_change: function (event) {
+      this.set('search', event.target.value);
+    },
+
+    find: function () {
+      this.$.find.where = { name: { regexp: '^' + this.search + '/i' } };
+      this.$.find.send();
+    },
+
+    on_click_item: function (event) {
+      event.stopPropagation();
+      var element = event.target;
+      var item = this.$.repeat.itemForElement(element);
+      this.set('search', item.name);
+      this.set('searching', false);
+    }
+
+  });
+</script>

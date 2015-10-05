@@ -1,6 +1,10 @@
 {
   "name": "Image",
+  "plural": "images",
   "base": "PersistedModel",
+  "mongodb": {
+    "collection": "images"
+  },
   "strict": false,
   "idInjection": false,
   "options": {
@@ -38,5 +42,5 @@
   "validations": [],
   "relations": {},
   "acls": [],
-  "methods": []
+  "methods": {}
 }

@@ -1,0 +1,25 @@
+{
+  "name": "Category",
+  "plural": "categories",
+  "base": "PersistedModel",
+  "mongodb": {
+    "collection": "categories"
+  },
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "articles": {
+      "type": "hasMany",
+      "model": "Article"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,49 @@
+<link rel="import" href="../style-panel/style-panel.html">
+<link rel="import" href="form-settings-profile.html">
+<dom-module id="panel-settings-profile">
+  <template>
+    <style include="style-panel"></style>
+
+    <api-model-update id="update"
+      collection="authors" model-id="{{user.id}}" access-token="{{token}}"
+      on-response="on_response_update" on-error="on_error_update">
+    </api-model-update>
+
+    <div class="panel">
+      <h3 class="title">change profile</h3>
+      <form-settings-profile></form-settings-profile>
+    </div>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'panel-settings-profile',
+
+    properties: {
+      data: {
+        type: Object,
+        value: function () { return {}; }
+      }
+    },
+
+    request_update: function () {
+      this.$.update.send();
+    },
+
+    on_submit: function (event) {
+      event.stopPropagation();
+      this.request_update();
+    },
+
+    on_response_update: function(event) {
+      console.log(event);
+    },
+
+    on_error_update: function (event) {
+      console.warn(event)
+    }
+
+  });
+</script>

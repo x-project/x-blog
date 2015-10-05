@@ -1,0 +1,29 @@
+<link rel="import" href="../layout-admin/layout-admin.html">
+<link rel="import" href="../style-page/style-page.html">
+<link rel="import" href="panel-settings-profile.html">
+<link rel="import" href="panel-settings-email.html">
+<link rel="import" href="panel-settings-password.html">
+<dom-module id="page-settings">
+  <template>
+    <style include="style-page"></style>
+    <style>
+    </style>
+
+    <layout-admin>
+      <div class="container">
+        <h2>Settings</h2>
+        <panel-settings-profile></panel-settings-profile>
+        <panel-settings-email></panel-settings-email>
+        <panel-settings-password></panel-settings-password>
+      </div>
+    </layout-admin>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'page-settings'
+
+  });
+</script>

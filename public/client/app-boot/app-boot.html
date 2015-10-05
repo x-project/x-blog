@@ -1,0 +1,150 @@
+<link rel="import" href="../../components/api-model/api-model.html">
+<link rel="import" href="../../components/app-routes/app-routes.html">
+<link rel="import" href="../../components/app-route/app-route.html">
+<link rel="import" href="../../components/app-container/app-container.html">
+<link rel="import" href="../../components/app-link/app-link.html">
+<link rel="import" href="../../components/app-session/app-session.html">
+<link rel="import" href="../app-theme/app-theme.html">
+<link rel="import" href="../page-about/page-about.html">
+<link rel="import" href="../page-article/page-article.html">
+<link rel="import" href="../page-articles/page-articles.html">
+<link rel="import" href="../page-contact/page-contact.html">
+<link rel="import" href="../page-home/page-home.html">
+<link rel="import" href="../page-login/page-login.html">
+<link rel="import" href="../page-privacy/page-privacy.html">
+<link rel="import" href="../page-test/page-test.html">
+<dom-module id="app-boot">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <app-session id="session"></app-session>
+
+    <app-container id="app" on-login="on_login" on-logout="on_logout"></app-container>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'app-boot',
+
+    ready: function () {
+      this.register();
+    },
+
+    register: function () {
+      var app = this;
+      Object.keys(app.constructor.prototype)
+        .filter(function (method) {
+          return method.indexOf('/') == 0;
+        })
+        .forEach(function (method) {
+          var handler = app[method].bind(this);
+          page(method, handler);
+        }, this);
+      page();
+    },
+
+    on_route: function (event) {
+      this.user = this.$.session.get('user');
+    },
+
+    on_login: function (event) {
+      this.$.session.set('user', event.detail.user);
+    },
+
+    on_logout: function (event) {
+      this.$.session.unset('user');
+    },
+
+    '/login': function (event) {
+      if (this.user) {
+        event.stopPropagation();
+        page('/');
+        return;
+      }
+    },
+
+    get_model: function (params) {
+      var request = document.createElement('api-model-get');
+      request.collection = params.collection;
+      request.modelId = params.modelId;
+      request.include = params.include || [];
+
+      return new Promise(function (resolve, reject) {
+        request.addEventListener('response', function (event) {
+          resolve(request.response);
+        }, true);
+        request.addEventListener('error', function (event) {
+          reject(request.error);
+        }, true);
+        request.send();
+      });
+    },
+
+    open_page: function (context) {
+      var element = document.createElement(context.page_name);
+      element.params = context.params;
+      element.model = context.model;
+      this.$.app.open(element);
+    },
+
+    '/': function (context) {
+      context.page_name = 'page-home';
+      this.open_page(context);
+    },
+
+    '/home': function (context) {
+      context.page_name = 'page-home';
+      this.open_page(context);
+    },
+
+    '/articles': function (context) {
+      context.page_name = 'page-articles';
+      this.open_page(context);
+    },
+
+    '/articles/:article_id': function (context) {
+      this.get_model({
+        collection: 'articles',
+        modelId: context.params.article_id,
+        include: ['author', 'category']
+      })
+      .then(function (model) {
+        context.page_name = 'page-article';
+        context.model = model;
+        this.open_page(context);
+      }.bind(this))
+      .catch(function (error) {
+        console.log(error);
+        context.page_name = 'page-home';
+        this.open_page(context);
+      }.bind(this));
+    },
+
+    '/privacy': function (context) {
+      context.page_name = 'page-privacy';
+      this.open_page(context);
+    },
+
+    '/test': function (context) {
+      context.page_name = 'page-test';
+      this.open_page(context);
+    },
+
+    '/contact': function (context) {
+      context.page_name = 'page-contact';
+      this.open_page(context);
+    },
+
+    '/404': function (context) {
+      context.page_name = 'page-home';
+      this.open_page(context);
+    }
+
+  });
+</script>

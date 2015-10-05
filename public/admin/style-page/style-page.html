@@ -1,0 +1,34 @@
+<link rel="import" href="/components/layout-grid/layout-grid.html">
+<dom-module id="style-page">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .container {
+        display: block;
+        padding-top: 50px;
+        @apply(--layout-col-6);
+      }
+
+      .container p {
+        line-height: 1.75;
+      }
+
+      .button {
+        text-decoration: none;
+        background-color: #eee;
+        border-radius: 2px;
+        padding: 4px 8px;
+      }
+    </style>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'style-page'
+
+  });
+</script>

@@ -1,0 +1,31 @@
+<link rel="import" href="../../components/app-link/app-link.html">
+<link rel="import" href="../style-item/style-item.html">
+<dom-module id="item-category">
+  <template>
+    <style include="style-item"></style>
+
+    <div class="item">
+      <section>
+        <strong>{{item.name}}</strong>
+      </section>
+      <section>
+        <a is="app-link" href="{{item.editlink}}">edit</a>
+      </section>
+    </div>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'item-category',
+
+    properties: {
+      item: {
+        type: Object,
+        value: function () { return {}; }
+      }
+    }
+
+  });
+</script>

@@ -17,4 +17,5 @@
 .env
 coverage
 node_modules
-client/components
+npm-debug.log
+public/components

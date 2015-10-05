@@ -1,0 +1,46 @@
+<link rel="import" href="../part-footer/part-footer.html">
+<link rel="import" href="../part-jumbotron/part-jumbotron.html">
+<link rel="import" href="../part-header/part-header.html">
+<link rel="import" href="../style-page/style-page.html">
+
+<dom-module id="page-contact">
+  <template>
+    <style include="style-page"></style>
+
+    <div class="page">
+      <part-header class="header"></part-header>
+      <div class="main">
+        <part-jumbotron class="jumbotron">
+          <h1>Contact</h1>
+        </part-jumbotron>
+        <div class="container">
+          <h3>Drop us a line</h3>
+          <p>
+            <a href="{{mailto}}">{{email}}</a>
+          </p>
+        </div>
+      </div>
+      <div class="space"></div>
+      <part-footer class="footer"></part-footer>
+    </div>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'page-contact',
+
+    properties: {
+      mailto: {
+        type: String,
+        value: 'mailto:info@example.com'
+      },
+      email: {
+        type: String,
+        value: 'info@example.com'
+      }
+    }
+
+  });
+</script>

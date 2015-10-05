@@ -1,0 +1,69 @@
+<link rel="import" href="/components/layout-grid/layout-grid.html">
+<dom-module id="style-form">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .form {
+        margin-bottom: 4px;
+      }
+
+      .field {
+        margin-bottom: 18px;
+      }
+
+      .field .label {
+        display: block;
+        font-family: font-bold;
+      }
+
+      .field .input {
+        padding: 4px;
+        font-size: 16px;
+        font-family: font-regular;
+      }
+
+      .field .input[type="text"],
+      .field .input[type="email"],
+      .field .input[type="password"],
+      .field .input[type="date"] {
+        border: 1px solid #eee;
+        border-radius: 2px;
+        width: 100%;
+      }
+
+      .field .input:focus {
+        outline: none;
+      }
+
+      .field .textarea {
+        width: 100%;
+        border: none;
+      }
+
+      .field .textarea textarea {
+        border: 1px solid #eee !important;
+        border-radius: 2px;
+      }
+
+      .field .button {
+        text-decoration: none;
+        background-color: #eee;
+        border: none;
+        font-size: inherit;
+        border-radius: 2px;
+        padding: 6px 12px;
+      }
+
+    </style>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'style-form'
+
+  });
+</script>

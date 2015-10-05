@@ -1,0 +1,47 @@
+<link rel="import" href="/components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../part-footer/part-footer.html">
+<link rel="import" href="../part-jumbotron/part-jumbotron.html">
+<link rel="import" href="../part-header/part-header.html">
+<link rel="import" href="../style-page/style-page.html">
+<dom-module id="page-home">
+	<template>
+		<style include="style-page"></style>
+    <style>
+      .jumbotron {
+        height: 500px;
+        --jumbotron-content: {
+          @apply(--layout-center);
+          @apply(--layout-center-justified);
+        }
+      }
+      .jumbotron h1 {
+        font-size: 4em;
+        text-transform: uppercase;
+        font-family: font-bold;
+      }
+    </style>
+
+
+    <div class="page">
+      <part-header class="header"></part-header>
+      <div class="main">
+        <part-jumbotron class="jumbotron">
+          <h1 id="brand">x-blog</h1>
+        </part-jumbotron>
+        <div class="container">
+          <h2>Welcome</h2>
+        </div>
+      </div>
+      <div class="space"></div>
+      <part-footer class="footer"></part-footer>
+    </div>
+
+	</template>
+</dom-module>
+<script>
+	Polymer({
+
+		is: 'page-home'
+
+	});
+</script>

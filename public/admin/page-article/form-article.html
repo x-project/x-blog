@@ -1,0 +1,114 @@
+<link rel="import" href="/components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+<link rel="import" href="/components/iron-input/iron-input.html">
+<link rel="import" href="/components/api-model-update/api-model-update.html">
+<link rel="import" href="/components/input-datetime/input-datetime.html">
+<link rel="import" href="../style-form/style-form.html">
+<link rel="import" href="field-article-author.html">
+<link rel="import" href="field-article-category.html">
+<link rel="import" href="field-article-tags.html">
+<link rel="import" href="field-article-image.html">
+<dom-module id="form-article">
+  <template>
+    <style include="style-form"></style>
+
+    <api-model-update id="update" collection="articles" model-id="{{article.id}}"
+      on-response="on_response_update" on-error="on_error">
+    </api-model-update>
+
+    <api-model-delete id="delete" collection="articles" model-id="{{article.id}}"
+      on-response="on_response_delete" on-error="on_error">
+    </api-model-delete>
+
+    <form class="form" on-submit="on_submit">
+      <div class="field">
+        <label class="label">title</label>
+        <input class="input" is="iron-input" type="text" bind-value="{{article.title}}">
+      </div>
+      <div class="field">
+        <label class="label">summary</label>
+        <iron-autogrow-textarea class="textarea" rows="3" bind-value="{{article.summary}}">
+        </iron-autogrow-textarea>
+      </div>
+      <div class="field">
+        <label class="label">content</label>
+        <iron-autogrow-textarea class="textarea" rows="6" bind-value="{{article.content}}">
+        </iron-autogrow-textarea>
+      </div>
+      <div class="field">
+        <label class="label">image</label>
+        <field-article-image class="input" article="{{article}}">
+        </field-article-image>
+      </div>
+      <div class="field">
+        <label class="label">author</label>
+        <field-article-author class="input" bind-value="{{article.authorId}}">
+        </field-article-author>
+      </div>
+      <div class="field">
+        <label class="label">category</label>
+        <field-article-category class="input" bind-value="{{article.categoryId}}">
+        </field-article-category>
+      </div>
+      <div class="field">
+        <label>tags</label>
+        <field-article-tags bind-value="{{article.tags}}"></field-article-tags>
+      </div>
+      <div class="field">
+        <label class="label">published at</label>
+        <input-datetime class="input" value="{{article.published_at}}"></input-datetime>
+      </div>
+      <div class="field">
+        <input class="button" type="submit" value="update">
+      </div>
+      <div class="field">
+        <input class="button danger" type="submit" value="delete" on-click="request_delete">
+      </div>
+    </form>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'form-article',
+
+    properties: {
+      article: {
+        type: Object,
+        value: function () { return {}; }
+      }
+    },
+
+    request_update: function () {
+      this.$.update.send();
+    },
+
+    request_delete: function () {
+      this.$.delete.send();
+    },
+
+    on_submit: function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      this.request_update();
+    },
+
+    on_click_delete: function (event) {
+      event.preventDefault();
+      this.request_delete();
+    },
+
+    on_response_update: function (event) {
+      alert('article updated successfully!');
+    },
+
+    on_response_delete: function (event) {
+      page('/admin/articles');
+    },
+
+    on_error: function (event) {
+      console.warn(event);
+    }
+
+  });
+</script>

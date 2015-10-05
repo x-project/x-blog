@@ -1,24 +1,33 @@
 {
-  "name": "x-blog",
-  "version": "0.0.1",
-  "description": "x-blog",
+  "name": "x-journal",
+  "version": "0.0.5",
+  "description": "x-journal",
   "main": "server/server.js",
   "preinstall": "bower update",
   "scripts": {
     "pretest": "jshint ."
   },
   "dependencies": {
-    "aws-sdk": "^2.2.4",
+    "async": "^1.4.2",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
     "errorhandler": "^1.1.1",
+    "faker": "^3.0.1",
+    "gm": "^1.18.1",
+    "if-async": "^3.7.4",
+    "json-web-token": "^1.5.3",
+    "jwt-simple": "^0.3.1",
     "loopback": "^2.14.0",
     "loopback-boot": "^2.6.5",
-    "loopback-connector-mongodb": "^1.13.0",
+    "loopback-connector-mongodb": "^1.10.0",
     "loopback-datasource-juggler": "^2.19.0",
+    "loopback-ds-timestamp-mixin": "^3.2.2",
+    "minstache": "^1.2.0",
+    "mkdirp": "^0.5.1",
+    "moment": "^2.10.6",
+    "morgan": "^1.6.1",
     "serve-favicon": "^2.0.1",
-    "node-env-file": "^0.1.7"
-
+    "superagent": "^1.4.0"
   },
   "optionalDependencies": {
     "loopback-explorer": "^1.1.0"
