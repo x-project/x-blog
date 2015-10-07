@@ -9,9 +9,12 @@
 <link rel="import" href="../page-article/page-article.html">
 <link rel="import" href="../page-articles/page-articles.html">
 <link rel="import" href="../page-contact/page-contact.html">
+<link rel="import" href="../page-forgot/page-forgot.html">
 <link rel="import" href="../page-home/page-home.html">
 <link rel="import" href="../page-login/page-login.html">
 <link rel="import" href="../page-privacy/page-privacy.html">
+<link rel="import" href="../page-reset/page-reset.html">
+<link rel="import" href="../page-signup/page-signup.html">
 <link rel="import" href="../page-test/page-test.html">
 <dom-module id="app-boot">
   <template>
@@ -103,6 +106,11 @@
       this.open_page(context);
     },
 
+    '/about': function (context) {
+      context.page_name = 'page-about';
+      this.open_page(context);
+    },
+
     '/articles': function (context) {
       context.page_name = 'page-articles';
       this.open_page(context);
@@ -136,6 +144,26 @@
       this.open_page(context);
     },
 
+    '/login': function (context) {
+      context.page_name = 'page-login';
+      this.open_page(context);
+    },
+
+    '/signup': function (context) {
+      context.page_name = 'page-signup';
+      this.open_page(context);
+    },
+
+    '/reset': function (context) {
+      context.page_name = 'page-reset';
+      this.open_page(context);
+    },
+
+    '/forgot': function (context) {
+      context.page_name = 'page-forgot';
+      this.open_page(context);
+    },
+
     '/contact': function (context) {
       context.page_name = 'page-contact';
       this.open_page(context);
@@ -144,7 +172,13 @@
     '/404': function (context) {
       context.page_name = 'page-home';
       this.open_page(context);
-    }
+    },
+
+    '/*': function (context) {
+      context.page_name = 'page-home';
+      this.open_page(context);
+    },
+
 
   });
 </script>

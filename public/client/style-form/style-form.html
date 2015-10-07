@@ -6,23 +6,44 @@
         display: block;
       }
 
-      #form {
+      .form {
         margin-bottom: 4px;
       }
 
-      #form .field {
-        margin-bottom: 4px;
+      .form .field {
+        margin-bottom: .75em;
       }
 
-      #form .field .input {
-        height: 24px;
-        padding: 4px;
-        font-family: sans-serif;
-        font-size: 14px;
+      .form .label {
+        display: block;
+        font-family: font-bold;
       }
 
-      #form .field .input:focus {
+      .form .field .input {
+        padding: .5em;
+        border-radius: 2px;
+        border: 1px solid #aaa;
+        font-family: inherit;
+        font-size: inherit;
+      }
+
+      .form .field .input:focus {
         outline: none;
+        border-color: #3b99fc;
+      }
+
+      .form .button {
+        border: none;
+        border-radius: 2px;
+        background-color: #3b99fc;
+        color: white;
+        font-family: font-bold;
+        font-size: inherit;
+        padding: .5em 2em;
+      }
+      .form .button:hover {
+        cursor: pointer;
+        opacity: .75;
       }
     </style>
   </template>

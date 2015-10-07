@@ -1,41 +1,33 @@
-<link rel="import" href="/components/api-user-login/api-user-login.html">
-<link rel="import" href="/components/layout-grid/layout-grid.html">
+<link rel="import" href="../../components/api-user-login/api-user-login.html">
+<link rel="import" href="../../components/app-link/app-link.html">
+<link rel="import" href="../layout-empty/layout-empty.html">
 <link rel="import" href="form-login.html">
-
 <dom-module id="page-login">
   <template>
-    <style>
-      :host {
-        display: block;
-      }
+    <style include="layout-empty"></style>
 
-      #panel {
-        margin-top: 50px;
-      }
-      #panel a {
-        text-decoration: none;
-      }
-    </style>
-
-    <api-user-login id="login" credentials="{{credentials}}" collection="members"
+    <api-user-login id="login" credentials="{{credentials}}"
       response="{{response}}" on-response="on_login" on-error="on_error">
     </api-user-login>
 
-    <div id="panel" class="container">
-      <a is="app-link" href="/">&larr;</a>
-      <h3>Login</h3>
-      <form-login id="form" on-submit="on_submit"></form-login>
-      <div>
-        <a is="app-link" href="/signup">not registered?</a>
+    <layout-empty>
+      <div class="center">
+        <div class="panel container">
+          <a is="app-link" href="/">&larr;</a>
+          <h3>Login</h3>
+          <form-login id="form" on-submit="on_submit"></form-login>
+          <div>
+            <a is="app-link" href="/signup">not registered?</a>
+          </div>
+          <div>
+            <a is="app-link" href="/forgot">forgot password?</a>
+          </div>
+        </div>
       </div>
-      <div>
-        <a is="app-link" href="/reset">forgot password?</a>
-      </div>
-    </div>
+    </layout-empty>
 
   </template>
 </dom-module>
-
 <script>
   Polymer({
 
@@ -47,8 +39,7 @@
     },
 
     on_login: function (event) {
-      event.stopPropagation();
-      this.fire('login', this.response);
+      page('/settings');
     },
 
     on_error: function (event) {

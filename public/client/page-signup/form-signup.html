@@ -1,23 +1,23 @@
 <link rel="import" href="../../components/polymer/polymer.html">
 <link rel="import" href="../../components/iron-input/iron-input.html">
 <link rel="import" href="../style-form/style-form.html">
-<dom-module id="form-login">
+<dom-module id="form-signup">
   <template>
     <style include="style-form"></style>
 
-    <form class="form" name="login" on-submit="on_submit">
-      <div class="field" name="email">
+    <form class="form" on-submit="on_submit">
+      <div class="field">
         <label class="label">email</label>
         <input class="input" is="iron-input" type="text" placeholder="email"
           bind-value="{{credentials.email}}">
       </div>
-      <div class="field" name="password">
+      <div class="field">
         <label class="label">password</label>
         <input class="input" is="iron-input" type="password" placeholder="password"
           bind-value="{{credentials.password}}">
       </div>
-      <div class="field" name="submit">
-        <input class="button" type="submit" value="login" />
+      <div class="field">
+        <input class="button" type="submit" value="signup" />
       </div>
     </form>
 
@@ -26,7 +26,7 @@
 <script>
   Polymer({
 
-    is: 'form-login',
+    is: 'form-signup',
 
     properties: {
       credentials: {
@@ -40,10 +40,6 @@
       event.stopPropagation();
       event.preventDefault();
       this.fire('submit', this.credentials);
-    },
-
-    clear: function () {
-      this.credentials = {};
     }
 
   });

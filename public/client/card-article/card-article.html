@@ -1,18 +1,26 @@
+<link rel="import" href="../../components/app-link/app-link.html">
 <link rel="import" href="../style-card/style-card.html">
 <dom-module id="card-article">
   <template>
     <style include="style-card"></style>
+    <style>
+      #cover {
+        height: 200px;
+        background-color: #eee;
+        background-size: cover;
+      }
+    </style>
 
-    <div class="card">
-      <header class="header">
-        <h2>{{data.title}}</h2>
-        <h3>{{data.subtitle}}</h3>
-        <h4><span>by </span><em>{{data.author.fullname}}</em></h4>
-      </header>
-      <section class="section">
-        <p>{{data.summary}}</p>
-      </section>
-    </div>
+    <a is="app-link" href="{{data.url}}">
+      <div class="card">
+        <div id="cover" class="cover" style$="{{data.style}}"></div>
+        <div class="section">
+          <h3 class="title">{{data.title}}</h3>
+          <p class="subtitle">{{data.subtitle}}</p>
+          <p><span>by </span><em>{{data.author.fullname}}</em></p>
+        </div>
+      </div>
+    </a>
 
   </template>
 </dom-module>
@@ -26,7 +34,9 @@
       data: {
         type: Object
       }
-    }
+    },
+
+
 
   });
 </script>

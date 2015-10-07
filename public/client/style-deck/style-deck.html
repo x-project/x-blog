@@ -8,7 +8,15 @@
       }
 
       .deck {
+        @apply(--layout-horizontal);
+        @apply(--layout-wrap);
+        @apply(--layout-center-justified);
+      }
 
+      .deck .card {
+        @apply(--layout-col-3);
+        box-sizing: border-box;
+        padding: 10px;
       }
 
     </style>
